@@ -27,7 +27,7 @@
 */
 
 
-CIRCULO cria_circulo(int id, float x, float y, float raio, char* corP, char* corB);
+CIRCULO cria_circulo(int id, float x, float y, float raio, const char* corP, const char* corB);
 
 /**
  * @brief Faz o ID do círculo.
@@ -143,7 +143,7 @@ void setRaioCirculo(CIRCULO c, float raio);
  * @param corP Novo valor para a cor de preenchimento definido.
  */
 
-void setCorPCirculo(CIRCULO c, char* corP);
+void setCorPCirculo(CIRCULO c, const char* corP);
 
 /**
  * @brief Define a cor da borda do círculo.
@@ -152,7 +152,7 @@ void setCorPCirculo(CIRCULO c, char* corP);
  * @param corB Novo valor para a cor da borda definido.
  */
 
-void setCorBCirculo(CIRCULO c, char* corB);
+void setCorBCirculo(CIRCULO c, const char* corB);
 
 /**
  * @brief Libera a memória alocada para o círculo.

@@ -12,7 +12,7 @@ typedef struct {
     char *corB;
 } Circulo;
 
-CIRCULO cria_circulo(int id, float x, float y, float raio, char* corP, char* corB) {
+CIRCULO cria_circulo(int id, float x, float y, float raio, const char* corP, const char* corB) {
     Circulo* c = malloc(sizeof(Circulo));
     if (c == NULL) {
         printf("Erro ao alocar memoria para a criação do círculo");
@@ -99,14 +99,14 @@ void setRaioCirculo(CIRCULO c, float raio) {
     ((Circulo*)c)->raio = raio;
 }
 
-void setCorBCirculo(CIRCULO c, char* corB) {
+void setCorBCirculo(CIRCULO c, const char* corB) {
     Circulo* circ = (Circulo*)c;
     free(circ->corB);
     circ->corB = malloc(strlen(corB) + 1);
     strcpy(circ->corB, corB);
 }
 
-void setCorPCirculo(CIRCULO c, char* corP) {
+void setCorPCirculo(CIRCULO c, const char* corP) {
     Circulo* circ = (Circulo*)c;
     free(circ->corP);
     circ->corP = malloc(strlen(corP) + 1);
