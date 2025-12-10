@@ -239,6 +239,7 @@ void cmd_d(double x, double y, const char *sufixo, LISTA formas, FILE *txt, cons
             insereLista(formasSobreviventes, forma, tipo);
         }
         no = obtemProximoNo(no);
+
     }
     
     while (!listaVazia(formas)) {
@@ -261,7 +262,7 @@ void cmd_d(double x, double y, const char *sufixo, LISTA formas, FILE *txt, cons
         destroiForma(forma, tipo);
         no = obtemProximoNo(no);
     }
-    
+
     destroiLista(formasDestruidas);
     destroiLista(formasSobreviventes);
     
