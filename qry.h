@@ -19,6 +19,6 @@
  * @param tipoOrdenacao Tipo de ordenação a ser usada ('b' para bubble sort, 'i' para insertion sort, etc.)
  * @param thresholdInsertionSort Threshold para usar insertion sort
  */
-void processarQry(const char *pathQry, const char *pathTxt, const char *pathSvg, LISTA formas, char tipoOrdenacao, int thresholdInsertionSort);
+void processarQry(const char *pathQry, const char *pathTxt, const char *pathSvg, LISTA formas, char tipoOrdenacao, int thresholdInsertionSort,FILE* svgQry);
 
 #endif

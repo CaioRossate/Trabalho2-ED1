@@ -99,7 +99,4 @@ void* getProximoVertice(void *v);
  */
 void getCoordenadaVertice(void *v, double *x, double *y);
 
-
-
-
 #endif

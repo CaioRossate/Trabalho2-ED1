@@ -132,14 +132,17 @@ int main(int argc, char *argv[]) {
         snprintf(caminhoTxt, 2048, "%s%s-%s.txt", diretorioSaida, nomeBaseGeo, nomeBaseQry);
         snprintf(caminhoSvgQry, 2048, "%s%s-%s.svg", diretorioSaida, nomeBaseGeo, nomeBaseQry);
 
+        FILE *svgQry = fopen(caminhoSvgQry, "w");
+        if(svgQry != NULL){
+            iniciaSvg(svgQry);
+        }
         // Chama processarQry com parâmetros padrão de ordenação
         char tipoOrdenacao = 'q';
         int threshold = 10;
-        processarQry(caminhoCompletoQry, caminhoTxt, caminhoSvgQry, chao, tipoOrdenacao, threshold);
+        processarQry(caminhoCompletoQry, caminhoTxt, caminhoSvgQry, chao, tipoOrdenacao, threshold, svgQry);
 
-        FILE *svgQry = fopen(caminhoSvgQry, "w");
+        
         if (svgQry != NULL) {
-            iniciaSvg(svgQry);
             desenhaFormasLista(svgQry, chao);
             finalizaSvg(svgQry);
             printf("SVG final gerado: %s\n", caminhoSvgQry);
@@ -147,6 +150,14 @@ int main(int argc, char *argv[]) {
         
         printf("Relatório gerado: %s\n", caminhoTxt);
     }
+    void *no = obtemPrimeiroNo(chao);
+        while (no != NULL) {
+        void *forma = obtemDado(no);
+        char tipo = obtemTipo(no);
+        destroiForma(forma, tipo);
+        no = obtemProximoNo(no);
+    }
+
 
     destroiLista(chao);
     

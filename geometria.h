@@ -2,6 +2,7 @@
 #define GEOMETRIA_H
 
 #include "anteparo.h" 
+#include "poligono.h"
 #include <stdbool.h>
 
 /**
@@ -47,5 +48,14 @@ bool pontoNoPoligono(double px, double py, double *verticesX, double *verticesY,
  * @return Distância mínima
  */
 double distanciaPontoAnteparo(double px, double py, ANTEPARO ant);
+
+/**
+ * @brief Verifica se uma forma intercepta um polígono de visibilidade.
+ * @param forma Ponteiro para a forma (CIRCULO, RETANGULO, LINHA ou TEXTO)
+ * @param tipo Tipo da forma ('c', 'r', 'l', 't')
+ * @param poli Polígono de visibilidade
+ * @return true se a forma intercepta o polígono
+ */
+bool formaIntersectaPoligono(void *forma, char tipo, POLIGONO poli);
 
 #endif

@@ -6,8 +6,7 @@
  * @brief TAD para anteparos (segmentos bloqueantes).
  * 
  * @details
- * Anteparos são segmentos de reta que bloqueiam a propagação
- * das bombas alienígenas.
+ * Anteparos são segmentos de reta que bloqueiam a propagação das bombas.
  */
 
 typedef void* ANTEPARO;

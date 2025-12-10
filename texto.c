@@ -80,7 +80,6 @@ float getAreaTexto(TEXTO t) {
     return 20.0 * strlen(((Texto*)t)->txto); 
 }
 
-
 void setIDTexto(TEXTO t, int id) { ((Texto*)t)->id = id; }
 void setXTexto(TEXTO t, float x) { ((Texto*)t)->x = x; }
 void setYTexto(TEXTO t, float y) { ((Texto*)t)->y = y; }

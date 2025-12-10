@@ -2,7 +2,7 @@
 #define LINHA_H
 
 #include <stdlib.h>
-#include <math.h> 
+
 
 /**
  * @file linha.h

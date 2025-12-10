@@ -58,17 +58,16 @@ void processarGeo(const char *pathGeo, LISTA chao) {
             insereLista(chao, l, 'l');
         }
         else if (strcmp(comando, "t") == 0) {
+            // Comando t: t id x y corB corP ancora txto
             float x, y;
             char corB[30], corP[30], ancora;
             char txto[256];
             
             
-            int numRead = sscanf(linha, "t %d %f %f %29s %29s %c %s", 
-                                &id, &x, &y, corB, corP, &ancora, txto);
+            int numRead = sscanf(linha, "t %d %f %f %29s %29s %c %s", &id, &x, &y, corB, corP, &ancora, txto);
             
             if (numRead == 7) {           
-                TEXTO t = cria_texto(id, x, y, ancora, corB, corP, txto, 
-                                    fontFamily, fontWeight, fontSize);
+                TEXTO t = cria_texto(id, x, y, ancora, corB, corP, txto, fontFamily, fontWeight, fontSize);
                 insereLista(chao, t, 't');
             }
         }

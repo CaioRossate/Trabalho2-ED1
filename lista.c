@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "lista.h"
 #include <stdlib.h>
 

@@ -63,11 +63,7 @@ void adicionaSegmento(POLIGONO p) {
     if (p == NULL) return;
     
     Poligono *poli = (Poligono*)p;
-    
-    // Um segmento é definido por dois vértices consecutivos
-    // Como estamos usando lista encadeada, os segmentos já estão implícitos
-    // na ordem dos vértices. Esta função pode ser usada para validação.
-    
+    // Verifica se há pelo menos dois vértices
     if (poli->numVertices < 2) {
         fprintf(stderr, "AVISO: Menos de 2 vértices para formar segmento\n");
         return;
@@ -147,13 +143,7 @@ void liberaPoligono(POLIGONO p) {
     free(poli);
 }
 
-/**
- * @brief Algoritmo Ray Casting para verificar se ponto está dentro do polígono.
- * @details 
- * Traça um raio horizontal do ponto para o infinito (direita).
- * Conta quantas vezes o raio cruza as arestas do polígono.
- * Se o número de cruzamentos for ímpar, o ponto está dentro.
- */
+// Algoritmo de Ray Casting para verificar se ponto está dentro do polígono
 bool isInside(POLIGONO p, double x, double y) {
     if (p == NULL) return false;
     
@@ -198,33 +188,21 @@ bool isInside(POLIGONO p, double x, double y) {
     return dentro;
 }
 
-/**
- * @brief Obtém o número de vértices do polígono.
- */
 int getNumVertices(POLIGONO p) {
     if (p == NULL) return 0;
     return ((Poligono*)p)->numVertices;
 }
 
-/**
- * @brief Obtém o primeiro vértice (para iteração).
- */
 void* getPrimeiroVertice(POLIGONO p) {
     if (p == NULL) return NULL;
     return ((Poligono*)p)->primeiro;
 }
 
-/**
- * @brief Obtém o próximo vértice (para iteração).
- */
 void* getProximoVertice(void *v) {
     if (v == NULL) return NULL;
     return ((Vertice*)v)->proximo;
 }
 
-/**
- * @brief Obtém coordenadas de um vértice (para iteração).
- */
 void getCoordenadaVertice(void *v, double *x, double *y) {
     if (v == NULL || x == NULL || y == NULL) return;
     Vertice *vert = (Vertice*)v;

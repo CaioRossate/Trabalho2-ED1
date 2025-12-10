@@ -72,8 +72,6 @@ NoArvore* insereNoArvore(NoArvore *no, ANTEPARO ant, double yRef) {
     } else if (cmp > 0) {
         no->direita = insereNoArvore(no->direita, ant, yRef);
     }
-    // Se cmp == 0, já existe (não insere duplicatas)
-    
     return no;
 }
 
@@ -146,10 +144,7 @@ bool removeArvore(ARVORE arvore, ANTEPARO ant) {
     return removido;
 }
 
-/**
- * @brief Calcula a interseção de um raio com um anteparo.
- * @return Distância até a interseção, ou -1 se não intersecta
- */
+// Calcula interseção do raio com o anteparo 
 static double intersecaoRaioAnteparo(double px, double py, double angulo, ANTEPARO ant) {
     double x1 = getX1Anteparo(ant);
     double y1 = getY1Anteparo(ant);
@@ -168,7 +163,6 @@ static double intersecaoRaioAnteparo(double px, double py, double angulo, ANTEPA
     double denominador = dx * sy - dy * sx;
     
     if (fabs(denominador) < 1e-9) {
-        // Raio paralelo ao anteparo
         return -1.0;
     }
     
@@ -183,11 +177,9 @@ static double intersecaoRaioAnteparo(double px, double py, double angulo, ANTEPA
     return -1.0;
 }
 
-void buscaMaisProximoRec(NoArvore *no, double x, double y, double angulo, 
-                         ANTEPARO *melhor, double *melhorDist) {
+void buscaMaisProximoRec(NoArvore *no, double x, double y, double angulo, ANTEPARO *melhor, double *melhorDist) {
     if (no == NULL) return;
     
-    // Busca em toda a árvore
     buscaMaisProximoRec(no->esquerda, x, y, angulo, melhor, melhorDist);
     
     double dist = intersecaoRaioAnteparo(x, y, angulo, no->anteparo);

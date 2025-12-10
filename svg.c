@@ -139,8 +139,7 @@ void desenhaSegmentoSvg(FILE *svgFile, ANTEPARO seg) {
 
     const char *stroke_color = (cor != NULL && cor[0] != '\0') ? cor : "black";
 
-    fprintf(svgFile, "\t<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"%s\" stroke-width=\"2\"/>\n",
-            x1, y1, x2, y2, stroke_color);
+    fprintf(svgFile, "\t<line x1=\"%.2f\" y1=\"%.2f\" x2=\"%.2f\" y2=\"%.2f\" stroke=\"%s\" stroke-width=\"2\"/>\n", x1, y1, x2, y2, stroke_color);
 }
 
 void finalizaSvg(FILE *svgFile) {

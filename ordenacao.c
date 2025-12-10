@@ -70,9 +70,7 @@ void merge(void *base, size_t left, size_t mid, size_t right, size_t size, int (
     free(R);
 }
 
-void mergesort_recursivo(void *base, size_t left, size_t right, size_t size,
-                        int (*compar)(const void*, const void*),
-                        int threshold) {
+void mergesort_recursivo(void *base, size_t left, size_t right, size_t size, int (*compar)(const void*, const void*), int threshold) {
     if (left >= right) return;
     
     size_t tamanho = right - left + 1;
@@ -90,9 +88,7 @@ void mergesort_recursivo(void *base, size_t left, size_t right, size_t size,
     merge(base, left, mid, right, size, compar);
 }
 
-void mergesort(void *base, size_t n, size_t size,
-               int (*compar)(const void*, const void*),
-               int threshold) {
+void mergesort(void *base, size_t n, size_t size, int (*compar)(const void*, const void*), int threshold) {
     if (base == NULL || n <= 1) return;
     
     mergesort_recursivo(base, 0, n - 1, size, compar, threshold);

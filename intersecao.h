@@ -6,11 +6,8 @@
 #include "circulo.h"
 #include "retangulo.h"
 #include "linha.h"
-#include "texto.h" 
-
-
-typedef void *FORMA; 
-
+#include "texto.h"
+#include "util_forma.h"
 
 /**
  * @brief Verifica se duas formas genéricas se interceptam.

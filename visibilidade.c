@@ -100,15 +100,12 @@ ANTEPARO encontraAnteparoMaisProximo(LISTA anteparos, double px, double py, doub
     return melhor;
 }
 
-POLIGONO calculaVisibilidade(double x, double y, LISTA anteparos, 
-                             char tipoOrdenacao, int threshold) {
+POLIGONO calculaVisibilidade(double x, double y, LISTA anteparos, char tipoOrdenacao, int threshold) {
     if (anteparos == NULL || listaVazia(anteparos)) {
         POLIGONO poli = criaPoligono();
         
-        /* Sem anteparos: retorna um polígono quadrado grande centrado no ponto
-         * Usamos um raio razoável (1k) em vez de um número mágico enorme.
-         */
-        double raio = 1000.0;
+        // Adiciona um grande quadrado ao redor do ponto de observação
+        double raio = 4096.0;
         adicionaVertice(poli, x - raio, y - raio);
         adicionaVertice(poli, x + raio, y - raio);
         adicionaVertice(poli, x + raio, y + raio);
@@ -117,15 +114,15 @@ POLIGONO calculaVisibilidade(double x, double y, LISTA anteparos,
         return poli;
     }
     
-    // Passo 1: Coletar vértices dos anteparos
+    // coleta eventos
     Evento *eventos = (Evento*)malloc(MAX_VERTICES * sizeof(Evento));
     if (eventos == NULL) return NULL;
     
     int numEventos = 0;
     
-    /* Calcular bounding box dos anteparos e distância máxima do observador */
+    // Calcula bounding box dos anteparos e distância máxima do observador
     BoundingBox bbAll = NULL;
-    double maxDist = 0.0;
+    double maxDist = 4096.0;
 
     void *no = obtemPrimeiroNo(anteparos);
     while (no != NULL && numEventos < MAX_VERTICES - 1) {
@@ -137,11 +134,11 @@ POLIGONO calculaVisibilidade(double x, double y, LISTA anteparos,
         double x2 = getX2Anteparo(ant);
         double y2 = getY2Anteparo(ant);
         
-        /* atualiza bounding box geral */
+        // atualiza bounding box geral
         BoundingBox bb = criaBBAnteparo(ant);
         if (bb != NULL) {
             if (bbAll == NULL) {
-                bbAll = bb; /* adota primeiro */
+                bbAll = bb;
             } else {
                 uniaoBB(bbAll, bb);
                 destruirBB(bb);
@@ -172,22 +169,20 @@ POLIGONO calculaVisibilidade(double x, double y, LISTA anteparos,
         no = obtemProximoNo(no);
     }
     
-    // Passo 2: Ordenar eventos
+    // ordena eventos
     if (tipoOrdenacao == 'm' || tipoOrdenacao == 'M') {
         mergesort(eventos, numEventos, sizeof(Evento), comparaEventos, threshold);
     } else {
         qsort(eventos, numEventos, sizeof(Evento), comparaEventos);
     }
     
-    // Passo 3: Sweep line - construir polígono
+    // constrói polígono de visibilidade
     POLIGONO poli = criaPoligono();
     
-    /* Determina um raio de corte baseado nos anteparos (limita raios sem interseção)
-     * Usa uma margem para evitar cortes justos na borda.
-     */
+    // calcula raio máximo para projeção dos raios
     double raioMax = maxDist * 1.2;
-    if (raioMax < 100.0) raioMax = 100.0;
-    /* Se temos bounding box dos anteparos, podemos também limitar pelo tamanho diagonal */
+    
+    // Se temos bounding box dos anteparos, podemos também limitar pelo tamanho diagonal
     if (bbAll != NULL) {
         double bw = getWBoundingBox(bbAll);
         double bh = getHBoundingBox(bbAll);
@@ -200,9 +195,7 @@ POLIGONO calculaVisibilidade(double x, double y, LISTA anteparos,
         
         // Traça raios em 3 direções próximas
         double angulos[3] = {
-            angulo - 0.0001,
-            angulo,
-            angulo + 0.0001
+            angulo - 0.0001, angulo, angulo + 0.0001
         };
         
         for (int j = 0; j < 3; j++) {
@@ -220,7 +213,7 @@ POLIGONO calculaVisibilidade(double x, double y, LISTA anteparos,
                     adicionaVertice(poli, vx, vy);
                 }
             } else {
-                /* Sem anteparo interceptando este raio: projeta até o raio máximo calculado */
+                // Sem anteparo interceptando este raio: projeta até o raio máximo calculado
                 double vx = x + raioMax * cos(ang);
                 double vy = y + raioMax * sin(ang);
                 adicionaVertice(poli, vx, vy);
