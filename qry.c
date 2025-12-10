@@ -460,6 +460,17 @@ void processarQry(const char *pathQry, const char *pathTxt, const char *pathSvg,
         }
     }
     
+    // Libera lista de anteparos anterior se existir
+    if (anteparos != NULL) {
+        void *no = obtemPrimeiroNo(anteparos);
+        while (no != NULL) {
+            void *ant = obtemDado(no);
+            destroiAnteparo((ANTEPARO)ant);
+            no = obtemProximoNo(no);
+        }
+        destroiLista(anteparos);
+    }
+    
     anteparos = criaLista();
     
     char linha[TAM_LINHA_MAX];
@@ -504,15 +515,15 @@ void processarQry(const char *pathQry, const char *pathTxt, const char *pathSvg,
     }
     
     if (anteparos != NULL) {
-    void *no = obtemPrimeiroNo(anteparos);
-    while (no != NULL) {
-        void *ant = obtemDado(no);
-        desenhaSegmentoSvg(svgQry, (ANTEPARO)ant);
-        destroiAnteparo((ANTEPARO)ant);
-        no = obtemProximoNo(no);
-    }
-    destroiLista(anteparos);
-    anteparos = NULL;
+        void *no = obtemPrimeiroNo(anteparos);
+        while (no != NULL) {
+            void *ant = obtemDado(no);
+            desenhaSegmentoSvg(svgQry, (ANTEPARO)ant);
+            destroiAnteparo((ANTEPARO)ant);
+            no = obtemProximoNo(no);
+        }
+        destroiLista(anteparos);
+        anteparos = NULL;
     }
     
     fclose(qryFile);

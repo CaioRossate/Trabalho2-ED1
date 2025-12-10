@@ -11,7 +11,7 @@
 #include "boundingbox.h"
 
 #define EPSILON 1e-9
-#define MAX_VERTICES 10000
+#define MAX_VERTICES 2000
 #define M_PI 3.14159265358979323846
 
 typedef struct {
